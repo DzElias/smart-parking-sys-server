@@ -1,4 +1,4 @@
-import Vehicle from '../models/vehicle.js';
+import Vehicle from '../models/record.js';
 
 // Registrar la entrada del vehículo
 export const registerVehicleEntry = async (licensePlate, timestamp) => {
