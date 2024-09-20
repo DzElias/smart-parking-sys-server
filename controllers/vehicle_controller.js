@@ -26,8 +26,8 @@ export const payParking = async (req, res) => {
 // Manejar la salida del vehículo y abrir la barrera
 export const vehicleExit = async (req, res) => {
   try {
-    const { license_plate } = req.body;
-    const vehicle = await vehicleService.checkExitAuthorization(license_plate);
+    const { license_plate, timestamp } = req.body;
+    const vehicle = await vehicleService.checkExitAuthorization(license_plate, timestamp);
 
     if (vehicle.paid) {
       await cameraService.openBarrier(); // Enviar señal para abrir la barrera

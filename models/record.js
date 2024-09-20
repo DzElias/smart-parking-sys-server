@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const vehicleSchema = new mongoose.Schema({
-  licensePlate: { type: String, required: true, unique: true },
+  licensePlate: { type: String, required: true, unique: false},
   entryTime: { type: Date, default: Date.now },
   paid: { type: Boolean, default: false },
   exitTime: { type: Date },

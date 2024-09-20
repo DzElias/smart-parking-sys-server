@@ -9,7 +9,7 @@ export const registerVehicleEntry = async (licensePlate, timestamp) => {
 
 // Procesar el pago del estacionamiento
 export const processPayment = async (licensePlate) => {
-  const vehicle = await Vehicle.findOne({ licensePlate });
+  const vehicle = await Vehicle.findOne({ licensePlate: licensePlate, exitTime: null });
 
   if (!vehicle) throw new Error('Vehicle not found');
 
@@ -19,9 +19,10 @@ export const processPayment = async (licensePlate) => {
 };
 
 // Verificar si el vehículo está autorizado para salir
-export const checkExitAuthorization = async (licensePlate) => {
-  const vehicle = await Vehicle.findOne({ licensePlate });
-
+export const checkExitAuthorization = async (licensePlate, timestamp) => {
+  const vehicle = await Vehicle.findOne({ licensePlate: licensePlate, exitTime: null });
+  if(vehicle && vehicle.paid == true) await Vehicle.updateOne({exitTime: null, licensePlate: licensePlate}, 
+    {exitTime: Date.now()});
   if (!vehicle) throw new Error('Vehicle not found');
   
   return vehicle;
